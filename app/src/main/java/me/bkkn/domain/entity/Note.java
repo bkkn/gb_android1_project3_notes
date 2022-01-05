@@ -1,4 +1,4 @@
-package me.bkkn.domain.entities;
+package me.bkkn.domain.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
