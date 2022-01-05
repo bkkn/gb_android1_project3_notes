@@ -1,8 +1,10 @@
-package me.bkkn;
+package me.bkkn.ui;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import me.bkkn.R;
 
 public class MainActivity extends AppCompatActivity {
 
