@@ -3,7 +3,20 @@ package me.bkkn.domain.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Nullable;
+
 public class Note implements Parcelable {
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
     String title;
     String text;
     long timestamp;
@@ -32,18 +45,6 @@ public class Note implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
-        @Override
-        public Note createFromParcel(Parcel in) {
-            return new Note(in);
-        }
-
-        @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
-        }
-    };
-
     public String getTitle() {
         return title;
     }
@@ -66,5 +67,13 @@ public class Note implements Parcelable {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object other) {
+
+        return ((Note) other).text.compareTo(text) == 0 &&
+                ((Note) other).title.compareTo(title) == 0 &&
+                ((Note) other).timestamp == timestamp;
     }
 }

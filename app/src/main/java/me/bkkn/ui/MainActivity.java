@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import me.bkkn.App;
 import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
@@ -37,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new NoteAdapter();
-        adapter.setData(notes.getNotes());
+        List<Note> list = notes.getNotes();
+        adapter.setData(list);
         adapter.setOnDeleteClickListener(this);
 
         recyclerView.setAdapter(adapter);

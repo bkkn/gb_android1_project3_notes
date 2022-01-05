@@ -17,11 +17,11 @@ public class DummyNotes implements Notes {
 
     @Override
     public List<Note> getNotes() {
-        return null;
+        return list;
     }
 
     @Override
     public void deleteNote(Note note) {
-
+        list.remove(note);
     }
 }

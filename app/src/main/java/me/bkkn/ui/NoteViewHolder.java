@@ -12,7 +12,7 @@ import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder {
-    private final TextView nameTextView = itemView.findViewById(R.id.name_text_view);
+    private final TextView nameTextView = itemView.findViewById(R.id.title_text_view);
     private final TextView contentTextView = itemView.findViewById(R.id.content_text_view);
     private final TextView themeTextView = itemView.findViewById(R.id.theme_text_view);
     private final Button deleteButton = itemView.findViewById(R.id.delete_button);
