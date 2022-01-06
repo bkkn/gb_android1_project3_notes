@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Notes</string>
     <string name="remove_button_label">удалить</string>
+    <string name="add_new_note_button_label">Новая заметка</string>
 </resources>

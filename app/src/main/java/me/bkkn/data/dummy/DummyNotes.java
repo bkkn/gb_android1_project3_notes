@@ -24,4 +24,10 @@ public class DummyNotes implements Notes {
     public void deleteNote(Note note) {
         list.remove(note);
     }
+
+    @Override
+    public void addNewNote() {
+        int i = list.size();
+        list.add(new Note("new"+i,"new"+i,0));
+    }
 }

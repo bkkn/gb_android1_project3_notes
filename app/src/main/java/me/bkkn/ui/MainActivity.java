@@ -2,6 +2,7 @@ package me.bkkn.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
     private RecyclerView recyclerView;
     private NoteAdapter adapter;
 
+    private Button addNewNoteButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,14 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
 
     private void initRecycler() {
         recyclerView = findViewById(R.id.recycler_view);
+        addNewNoteButton = findViewById(R.id.add_note_button);
+
+        addNewNoteButton.setOnClickListener(v->{
+            notes.addNewNote();
+            List<Note> list = notes.getNotes();
+            adapter.setData(list);
+            adapter.notifyItemInserted(list.size()-1); // Is it ok?
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

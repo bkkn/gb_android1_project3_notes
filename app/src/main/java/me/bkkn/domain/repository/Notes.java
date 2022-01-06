@@ -8,4 +8,6 @@ public interface Notes {
     List<Note>getNotes();
 
     void deleteNote(Note note);
+
+    void addNewNote();
 }
