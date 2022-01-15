@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
             List<Note> list = notes.getNotes();
             adapter.setData(list);
             adapter.notifyItemInserted(list.size()-1); // Is it ok?
+            recyclerView.smoothScrollToPosition(list.size()-1);
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
