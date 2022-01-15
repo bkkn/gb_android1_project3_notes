@@ -6,15 +6,19 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/name_text_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_gravity="center"
+        android:textSize="41sp"
+        tools:text="Заметка" />
 
     <Button
-        android:id="@+id/add_note_button"
-        android:layout_width="match_parent"
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_new_note_button_label" />
+        android:layout_gravity="center"
+        android:text="@string/remove_button_label" />
+
 </LinearLayout>
