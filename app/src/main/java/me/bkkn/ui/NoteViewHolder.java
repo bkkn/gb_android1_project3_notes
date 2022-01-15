@@ -36,4 +36,9 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         contentTextView.setText(note.getText());
         themeTextView.setText(note.getText());
     }
+
+    interface OnNoteListener {
+        void onDeleteNote(Note note);
+        void onClickNote(Note note);
+    }
 }

@@ -16,7 +16,7 @@ import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
 import me.bkkn.domain.repository.Notes;
 
-public class MainActivity extends AppCompatActivity implements OnNoteListener {
+public class MainActivity extends AppCompatActivity {
     private static final int NOTE_REQUEST_CODE = 42;
 
     private Notes notes;
@@ -53,23 +53,37 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
         adapter = new NoteAdapter();
         List<Note> list = notes.getNotes();
         adapter.setData(list);
-        adapter.setOnDeleteClickListener(this);
+        adapter.setOnDeleteClickListener(new NoteViewHolder.OnNoteListener() {
+            @Override
+            public void onDeleteNote(Note note) {
+                notes.deleteNote(note);
+                adapter.setData(notes.getNotes());
+            }
+
+            @Override
+            public void onClickNote(Note note) {
+                Intent intent = new Intent();
+//                Intent intent = new Intent(this, NoteActivity.class);
+                intent.putExtra(NoteActivity.NOTE_EXTRA_KEY, note);
+                startActivityForResult(intent, NOTE_REQUEST_CODE);
+            }
+        });
 
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void onDeleteNote(Note note) {
-        notes.deleteNote(note);
-        adapter.setData(notes.getNotes());
-    }
+//    @Override
+//    public void onDeleteNote(Note note) {
+//        notes.deleteNote(note);
+//        adapter.setData(notes.getNotes());
+//    }
 
-    @Override
-    public void onClickNote(Note note) {
-        Intent intent = new Intent(this, NoteActivity.class);
-        intent.putExtra(NoteActivity.NOTE_EXTRA_KEY, note);
-        startActivityForResult(intent, NOTE_REQUEST_CODE);
-    }
+//    @Override
+//    public void onClickNote(Note note) {
+//        Intent intent = new Intent(this, NoteActivity.class);
+//        intent.putExtra(NoteActivity.NOTE_EXTRA_KEY, note);
+//        startActivityForResult(intent, NOTE_REQUEST_CODE);
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
