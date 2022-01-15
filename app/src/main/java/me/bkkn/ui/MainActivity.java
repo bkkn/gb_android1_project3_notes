@@ -40,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         addNewNoteButton = findViewById(R.id.add_note_button);
 
-        addNewNoteButton.setOnClickListener(v->{
+        addNewNoteButton.setOnClickListener(v -> {
             notes.addNewNote();
             List<Note> list = notes.getNotes();
             adapter.setData(list);
-            adapter.notifyItemInserted(list.size()-1); // Is it ok?
-            recyclerView.smoothScrollToPosition(list.size()-1);
+            adapter.notifyItemInserted(list.size() - 1); // Is it ok?
+            recyclerView.smoothScrollToPosition(list.size() - 1);
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClickNote(Note note) {
-                Intent intent = new Intent();
-//                Intent intent = new Intent(this, NoteActivity.class);
+                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
                 intent.putExtra(NoteActivity.NOTE_EXTRA_KEY, note);
                 startActivityForResult(intent, NOTE_REQUEST_CODE);
             }
@@ -71,19 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
     }
-
-//    @Override
-//    public void onDeleteNote(Note note) {
-//        notes.deleteNote(note);
-//        adapter.setData(notes.getNotes());
-//    }
-
-//    @Override
-//    public void onClickNote(Note note) {
-//        Intent intent = new Intent(this, NoteActivity.class);
-//        intent.putExtra(NoteActivity.NOTE_EXTRA_KEY, note);
-//        startActivityForResult(intent, NOTE_REQUEST_CODE);
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
