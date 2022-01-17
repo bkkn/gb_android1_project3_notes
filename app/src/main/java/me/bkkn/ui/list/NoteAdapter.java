@@ -1,4 +1,4 @@
-package me.bkkn.ui;
+package me.bkkn.ui.list;
 
 import android.content.Context;
 import android.view.LayoutInflater;

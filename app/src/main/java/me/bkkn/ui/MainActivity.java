@@ -17,6 +17,8 @@ import me.bkkn.App;
 import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
 import me.bkkn.domain.repository.Notes;
+import me.bkkn.ui.list.NoteAdapter;
+import me.bkkn.ui.list.NoteViewHolder;
 
 public class MainActivity extends AppCompatActivity {
     private static final int NOTE_REQUEST_CODE = 42;

@@ -3,5 +3,6 @@
     <string name="remove_button_label">удалить</string>
     <string name="add_new_note_button_label">Новая заметка</string>
     <string name="cancel_button_label">закрыть</string>
-    <string name="ok_button_label">ok</string>
+    <string name="ok_button_label">сохранить</string>
+    <string name="delete">Delete</string>
 </resources>

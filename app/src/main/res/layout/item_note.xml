@@ -49,21 +49,17 @@
                 tools:text="Текст заметки" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/theme_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            tools:text="theme" />
-
-        <Button
+        <ImageButton
             android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             android:padding="8dp"
-            android:text="Delete" />
+            android:src="@drawable/ic_baseline_delete_24"
+            android:text="@string/delete"
+            tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
