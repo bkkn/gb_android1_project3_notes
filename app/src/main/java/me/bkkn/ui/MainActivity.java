@@ -1,5 +1,7 @@
 package me.bkkn.ui;
 
+import static me.bkkn.ui.NoteActivity.NOTE_EXTRA_KEY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             notes.addNewNote();
             List<Note> list = notes.getNotes();
             adapter.setData(list);
-            adapter.notifyItemInserted(list.size() - 1); // Is it ok?
+            adapter.notifyItemInserted(list.size() - 1);
             recyclerView.smoothScrollToPosition(list.size() - 1);
         });
 
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClickNote(Note note) {
                 Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-                intent.putExtra(NoteActivity.NOTE_EXTRA_KEY, note);
+                intent.putExtra(NOTE_EXTRA_KEY, note);
                 startActivityForResult(intent, NOTE_REQUEST_CODE);
             }
         });
@@ -77,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == NOTE_REQUEST_CODE && resultCode == RESULT_OK) {
             adapter.setData(notes.getNotes());
+            //Note note = data.getParcelableExtra(NOTE_EXTRA_KEY);
+            //int idx = App.get(this).getNotes().index(note);
+            adapter.notifyDataSetChanged();
         }
     }
 }

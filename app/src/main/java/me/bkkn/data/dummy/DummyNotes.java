@@ -26,6 +26,19 @@ public class DummyNotes implements Notes {
     }
 
     @Override
+    public void changeTitle(Note note, String newTitle) {
+        int index = list.indexOf(note);
+        list.get(index).setTitle(newTitle);
+    }
+
+    @Override
+    public void editNote(Note note, String newTitle, String newContent) {
+        int index = list.indexOf(note);
+        list.get(index).setTitle(newTitle);
+        list.get(index).setText(newContent);
+    }
+
+    @Override
     public void addNewNote() {
         int i = list.size();
         list.add(new Note("new"+i,"new"+i,0));

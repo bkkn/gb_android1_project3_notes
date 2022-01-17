@@ -6,13 +6,21 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <TextView
+    <EditText
         android:id="@+id/name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="41sp"
+        android:textSize="48sp"
         tools:text="Заметка" />
+    <EditText
+        android:id="@+id/content_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="4dp"
+        android:textSize="24sp"
+        tools:text="Текст заметки" />
 
     <Button
         android:id="@+id/delete_button"
@@ -20,5 +28,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/remove_button_label" />
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/cancel_button_label" />
+    <Button
+        android:id="@+id/ok_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/ok_button_label" />
 
 </LinearLayout>
