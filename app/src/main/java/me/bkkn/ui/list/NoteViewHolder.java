@@ -2,7 +2,6 @@ package me.bkkn.ui.list;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,7 +13,7 @@ import me.bkkn.domain.entity.Note;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder {
     private final TextView nameTextView = itemView.findViewById(R.id.title_text_view);
-    private final TextView contentTextView = itemView.findViewById(R.id.content_text_view);
+    private final TextView contentTextView = itemView.findViewById(R.id.content_edit_text);
     private final ImageButton deleteButton = itemView.findViewById(R.id.delete_button);
 
     private OnNoteListener onNoteListener;
