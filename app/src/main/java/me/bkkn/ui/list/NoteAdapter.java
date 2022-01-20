@@ -1,4 +1,4 @@
-package me.bkkn.ui;
+package me.bkkn.ui.list;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,9 +14,9 @@ import me.bkkn.domain.entity.Note;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private List<Note> data = new ArrayList<>();
-    private OnNoteListener onNoteListener;
+    private NoteViewHolder.OnNoteListener onNoteListener;
 
-    public void setOnDeleteClickListener(OnNoteListener onNoteListener) {
+    public void setOnDeleteClickListener(NoteViewHolder.OnNoteListener onNoteListener) {
         this.onNoteListener = onNoteListener;
     }
 

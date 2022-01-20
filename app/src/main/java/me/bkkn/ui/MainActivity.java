@@ -1,5 +1,7 @@
 package me.bkkn.ui;
 
+import static me.bkkn.ui.NoteActivity.NOTE_EXTRA_KEY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,8 +17,10 @@ import me.bkkn.App;
 import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
 import me.bkkn.domain.repository.Notes;
+import me.bkkn.ui.list.NoteAdapter;
+import me.bkkn.ui.list.NoteViewHolder;
 
-public class MainActivity extends AppCompatActivity implements OnNoteListener {
+public class MainActivity extends AppCompatActivity {
     private static final int NOTE_REQUEST_CODE = 42;
 
     private Notes notes;
@@ -40,12 +44,12 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
         recyclerView = findViewById(R.id.recycler_view);
         addNewNoteButton = findViewById(R.id.add_note_button);
 
-        addNewNoteButton.setOnClickListener(v->{
+        addNewNoteButton.setOnClickListener(v -> {
             notes.addNewNote();
             List<Note> list = notes.getNotes();
             adapter.setData(list);
-            adapter.notifyItemInserted(list.size()-1); // Is it ok?
-            recyclerView.smoothScrollToPosition(list.size()-1);
+            adapter.notifyItemInserted(list.size() - 1);
+            recyclerView.smoothScrollToPosition(list.size() - 1);
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -53,22 +57,22 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
         adapter = new NoteAdapter();
         List<Note> list = notes.getNotes();
         adapter.setData(list);
-        adapter.setOnDeleteClickListener(this);
+        adapter.setOnDeleteClickListener(new NoteViewHolder.OnNoteListener() {
+            @Override
+            public void onDeleteNote(Note note) {
+                notes.deleteNote(note);
+                adapter.setData(notes.getNotes());
+            }
+
+            @Override
+            public void onClickNote(Note note) {
+                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+                intent.putExtra(NOTE_EXTRA_KEY, note);
+                startActivityForResult(intent, NOTE_REQUEST_CODE);
+            }
+        });
 
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onDeleteNote(Note note) {
-        notes.deleteNote(note);
-        adapter.setData(notes.getNotes());
-    }
-
-    @Override
-    public void onClickNote(Note note) {
-        Intent intent = new Intent(this, NoteActivity.class);
-        intent.putExtra(NoteActivity.NOTE_EXTRA_KEY, note);
-        startActivityForResult(intent, NOTE_REQUEST_CODE);
     }
 
     @Override
@@ -77,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements OnNoteListener {
 
         if (requestCode == NOTE_REQUEST_CODE && resultCode == RESULT_OK) {
             adapter.setData(notes.getNotes());
+            //Note note = data.getParcelableExtra(NOTE_EXTRA_KEY);
+            //int idx = App.get(this).getNotes().index(note);
+            adapter.notifyDataSetChanged();
         }
     }
 }

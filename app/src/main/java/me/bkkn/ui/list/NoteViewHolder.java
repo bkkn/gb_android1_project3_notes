@@ -1,8 +1,9 @@
-package me.bkkn.ui;
+package me.bkkn.ui.list;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,8 +15,7 @@ import me.bkkn.domain.entity.Note;
 public class NoteViewHolder extends RecyclerView.ViewHolder {
     private final TextView nameTextView = itemView.findViewById(R.id.title_text_view);
     private final TextView contentTextView = itemView.findViewById(R.id.content_text_view);
-    private final TextView themeTextView = itemView.findViewById(R.id.theme_text_view);
-    private final Button deleteButton = itemView.findViewById(R.id.delete_button);
+    private final ImageButton deleteButton = itemView.findViewById(R.id.delete_button);
 
     private OnNoteListener onNoteListener;
 
@@ -34,6 +34,10 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
         nameTextView.setText(note.getTitle());
         contentTextView.setText(note.getText());
-        themeTextView.setText(note.getText());
+    }
+
+    public interface OnNoteListener {
+        void onDeleteNote(Note note);
+        void onClickNote(Note note);
     }
 }

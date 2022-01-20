@@ -9,5 +9,14 @@ public interface Notes {
 
     void deleteNote(Note note);
 
+    void changeTitle(Note note, String newTitle);
+
+    void editNote(Note note, String newTitle, String newContent);
+
     void addNewNote();
+
+    default int index(Note note)
+    {
+        return getNotes().indexOf(note);
+    }
 }
