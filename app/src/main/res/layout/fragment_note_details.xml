@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/note_details_root_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FBEED1"
@@ -8,7 +9,7 @@
     tools:context=".ui.MainActivity">
 
     <EditText
-        android:id="@+id/name_text_view"
+        android:id="@+id/name_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -17,7 +18,7 @@
         tools:text="Заметка" />
 
     <EditText
-        android:id="@+id/content_text_view"
+        android:id="@+id/content_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

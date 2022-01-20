@@ -6,20 +6,11 @@ import android.os.Parcelable;
 import androidx.annotation.Nullable;
 
 public class Note implements Parcelable {
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
-        @Override
-        public Note createFromParcel(Parcel in) {
-            return new Note(in);
-        }
-
-        @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
-        }
-    };
-    String title;
-    String text;
-    long timestamp;
+    private String id;
+    private String title;
+    private String text;
+    private int color;
+    private long timestamp;
 
     public Note(String title, String text, long timestamp) {
         this.title = title;
@@ -32,6 +23,22 @@ public class Note implements Parcelable {
         text = in.readString();
         timestamp = in.readLong();
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -75,5 +82,9 @@ public class Note implements Parcelable {
         return ((Note) other).text.compareTo(text) == 0 &&
                 ((Note) other).title.compareTo(title) == 0 &&
                 ((Note) other).timestamp == timestamp;
+    }
+
+    public int getColor() {
+        return color;
     }
 }
