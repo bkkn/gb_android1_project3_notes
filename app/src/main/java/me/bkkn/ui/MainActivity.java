@@ -44,7 +44,7 @@ public class MainActivity
         Fragment noteDetailsFragment = NoteDetailsFragment.newInstance(note);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.activity_main__details_fragment_container, noteDetailsFragment)
+                .replace(R.id.activity_main__main_fragment_container, noteDetailsFragment)
                 .addToBackStack(null)
                 .commit();
     }
