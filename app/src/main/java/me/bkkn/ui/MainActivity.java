@@ -50,7 +50,7 @@ public class MainActivity
     }
 
     @Override
-    public void onDeleteNote(String noteId) {
+    public void onDeleteNote(int noteId) {
         getSupportFragmentManager().popBackStack();
         NotesFragment notesFragment = (NotesFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST_FRAGMENT);
         if (notesFragment == null)
@@ -59,7 +59,7 @@ public class MainActivity
     }
 
     @Override
-    public void onCloseNote(String noteId) {
+    public void onCloseNote(int noteId) {
         getSupportFragmentManager().popBackStack();
         NotesFragment notesFragment = (NotesFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST_FRAGMENT);
         if (notesFragment == null)
@@ -68,7 +68,7 @@ public class MainActivity
     }
 
     @Override
-    public void onSaveNote(String noteId, String newTitle, String newContent) {
+    public void onSaveNote(int noteId, String newTitle, String newContent) {
         getSupportFragmentManager().popBackStack();
         NotesFragment notesFragment = (NotesFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST_FRAGMENT);
         if (notesFragment == null)

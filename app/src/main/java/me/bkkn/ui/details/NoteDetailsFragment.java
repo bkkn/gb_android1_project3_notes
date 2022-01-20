@@ -47,7 +47,7 @@ public class NoteDetailsFragment extends Fragment {
         if (context instanceof Controller) {
             controller = (Controller) context;
         } else {
-            throw new IllegalStateException("Activity must implement ColorDetailsFragment.Controller");
+            throw new IllegalStateException("Activity must implement NoteDetailsFragment.Controller");
         }
     }
 
@@ -89,10 +89,10 @@ public class NoteDetailsFragment extends Fragment {
     }
 
     public interface Controller {
-        void onDeleteNote(String noteId);
+        void onDeleteNote(int noteId);
 
-        void onCloseNote(String noteId);
+        void onCloseNote(int noteId);
 
-        void onSaveNote(String noteId, String newTitle, String newContent);
+        void onSaveNote(int noteId, String newTitle, String newContent);
     }
 }

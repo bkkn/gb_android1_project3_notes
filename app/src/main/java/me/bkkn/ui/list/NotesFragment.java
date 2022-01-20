@@ -89,14 +89,14 @@ public class NotesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    public void onDeleteNote(String noteId) {
+    public void onDeleteNote(int noteId) {
         adapter.setData(notes.getNotes());
     }
 
-    public void onCloseNote(String noteId) {
+    public void onCloseNote(int noteId) {
         adapter.setData(notes.getNotes());
     }
-    public void onSaveNote(String noteId) {
+    public void onSaveNote(int noteId) {
         adapter.setData(notes.getNotes());
     }
 
