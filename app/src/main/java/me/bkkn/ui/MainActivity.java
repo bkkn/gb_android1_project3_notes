@@ -1,24 +1,13 @@
 package me.bkkn.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
-import me.bkkn.App;
 import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
-import me.bkkn.domain.repository.Notes;
 import me.bkkn.ui.details.NoteDetailsFragment;
-import me.bkkn.ui.list.NoteAdapter;
-import me.bkkn.ui.list.NoteViewHolder;
 import me.bkkn.ui.list.NotesFragment;
 
 public class MainActivity
@@ -50,29 +39,7 @@ public class MainActivity
     }
 
     @Override
-    public void onDeleteNote(int noteId) {
+    public void popBackFragment() {
         getSupportFragmentManager().popBackStack();
-        NotesFragment notesFragment = (NotesFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST_FRAGMENT);
-        if (notesFragment == null)
-            throw new IllegalStateException("NotesFragment not on screen");
-        notesFragment.onDeleteNote(noteId);
-    }
-
-    @Override
-    public void onCloseNote(int noteId) {
-        getSupportFragmentManager().popBackStack();
-        NotesFragment notesFragment = (NotesFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST_FRAGMENT);
-        if (notesFragment == null)
-            throw new IllegalStateException("NotesFragment not on screen");
-        notesFragment.onCloseNote(noteId);
-    }
-
-    @Override
-    public void onSaveNote(int noteId, String newTitle, String newContent) {
-        getSupportFragmentManager().popBackStack();
-        NotesFragment notesFragment = (NotesFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST_FRAGMENT);
-        if (notesFragment == null)
-            throw new IllegalStateException("NotesFragment not on screen");
-        notesFragment.onSaveNote(noteId);
     }
 }

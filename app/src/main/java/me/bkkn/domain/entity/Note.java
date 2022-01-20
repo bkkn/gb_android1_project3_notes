@@ -6,10 +6,22 @@ import android.os.Parcelable;
 import androidx.annotation.Nullable;
 
 public class Note implements Parcelable {
+    public static final String DEFAULT_COLOR = "FBEED1";
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
     private int id;
     private String title;
     private String text;
-    private int color;
+    private int color = Integer.parseInt(DEFAULT_COLOR, 16);
 
     public Note(int id, String title, String text) {
         this.id = id;
@@ -25,18 +37,6 @@ public class Note implements Parcelable {
     public int getId() {
         return id;
     }
-
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
-        @Override
-        public Note createFromParcel(Parcel in) {
-            return new Note(in);
-        }
-
-        @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
-        }
-    };
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -67,10 +67,7 @@ public class Note implements Parcelable {
 
     @Override
     public boolean equals(@Nullable Object other) {
-
-        return  ((Note) other).id == id  &&
-                ((Note) other).text.compareTo(text) == 0 &&
-                ((Note) other).title.compareTo(title) == 0;
+        return ((Note) other).id == id;
     }
 
     public int getColor() {

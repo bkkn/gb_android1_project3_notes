@@ -89,15 +89,13 @@ public class NotesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    public void onDeleteNote(int noteId) {
-        adapter.setData(notes.getNotes());
-    }
+//    public void onDeleteNote(Note note) {
+//    }
 
     public void onCloseNote(int noteId) {
-        adapter.setData(notes.getNotes());
     }
+
     public void onSaveNote(int noteId) {
-        adapter.setData(notes.getNotes());
     }
 
     public interface Controller {

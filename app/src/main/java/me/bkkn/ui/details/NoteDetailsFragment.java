@@ -1,6 +1,7 @@
 package me.bkkn.ui.details;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,28 +72,22 @@ public class NoteDetailsFragment extends Fragment {
         deleteButton = view.findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(v -> {
             App.get().notes.deleteNote(note); // TODO delete by id
-            controller.onDeleteNote(note.getId());
+            controller.popBackFragment();
         });
         cancelButton = view.findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(v -> {
-            controller.onCloseNote(note.getId());
+            controller.popBackFragment();
         });
         okButton = view.findViewById(R.id.ok_button);
         okButton.setOnClickListener(v -> {
             App.get().notes.editNote(note,
                     noteTitleEditText.getText().toString(),
                     noteContentEditText.getText().toString()); // TODO delete by id
-            controller.onSaveNote(note.getId(),
-                    noteTitleEditText.getText().toString(),
-                    noteContentEditText.getText().toString());
+            controller.popBackFragment();
         });
     }
 
     public interface Controller {
-        void onDeleteNote(int noteId);
-
-        void onCloseNote(int noteId);
-
-        void onSaveNote(int noteId, String newTitle, String newContent);
+        void popBackFragment();
     }
 }
