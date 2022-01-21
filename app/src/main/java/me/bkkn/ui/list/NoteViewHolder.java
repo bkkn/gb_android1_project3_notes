@@ -4,9 +4,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
@@ -30,6 +33,13 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     public void bind(Note note) {
         deleteButton.setOnClickListener(v -> onNoteListener.onDeleteNote(note));
         itemView.setOnClickListener(v -> onNoteListener.onClickNote(note));
+        itemView.setOnLongClickListener(v -> {
+            Snackbar.make(v,"LongClicked",Snackbar.LENGTH_SHORT).show();
+            //Toast.makeText(itemView.getContext(), "LongClicked", Toast.LENGTH_SHORT).show();
+            //onNoteListener.onClickNote(note);
+            return false;
+        });
+
 
         nameTextView.setText(note.getTitle());
         contentTextView.setText(note.getText());
@@ -37,6 +47,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     public interface OnNoteListener {
         void onDeleteNote(Note note);
+
         void onClickNote(Note note);
     }
 }

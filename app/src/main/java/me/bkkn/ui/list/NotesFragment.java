@@ -51,9 +51,7 @@ public class NotesFragment extends Fragment {
         notes = App.get().notes;
 
         addNewNoteButton = view.findViewById(R.id.add_note_button);
-        addNewNoteButton.setOnClickListener(v -> {
-            recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
-        });
+
         initRecycler(view);
     }
 
