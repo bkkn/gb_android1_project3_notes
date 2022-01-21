@@ -2,6 +2,7 @@ package me.bkkn.ui.details;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import me.bkkn.App;
@@ -58,6 +60,7 @@ public class NoteDetailsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_note_details, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         rootLayout = view.findViewById(R.id.note_details_root_linear_layout);
@@ -65,7 +68,7 @@ public class NoteDetailsFragment extends Fragment {
         noteContentEditText = view.findViewById(R.id.content_edit_text);
 
         note = getArguments().getParcelable(NOTE_ARG_KEY);
-        rootLayout.setBackgroundColor(note.getColor());
+        //rootLayout.setBackgroundColor(note.getColor());
         noteTitleEditText.setText(note.getTitle());
         noteContentEditText.setText(note.getText());
 
@@ -90,6 +93,7 @@ public class NoteDetailsFragment extends Fragment {
     }
 
     public interface Controller {
+
         void popBackFragment();
 
         void updateDataSet();

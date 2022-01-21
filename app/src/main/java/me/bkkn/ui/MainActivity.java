@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import java.util.List;
+
 import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
 import me.bkkn.ui.details.NoteDetailsFragment;
