@@ -1,4 +1,5 @@
 package me.bkkn.ui.list;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -89,13 +90,8 @@ public class NotesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-//    public void onDeleteNote(Note note) {
-//    }
-
-    public void onCloseNote(int noteId) {
-    }
-
-    public void onSaveNote(int noteId) {
+    public void updateDataSet() {
+        adapter.setData(notes.getNotes());
     }
 
     public interface Controller {

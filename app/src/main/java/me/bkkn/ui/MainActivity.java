@@ -1,6 +1,7 @@
 package me.bkkn.ui;
 
 import android.os.Bundle;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,11 +17,25 @@ public class MainActivity
 
     private static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
 
+    private FrameLayout secondFragmentContainer;
+
+    private boolean isTwoPaneMode() {
+        return secondFragmentContainer != null;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        secondFragmentContainer = findViewById(R.id.activity_main__second_fragment_container);
+
+        if (savedInstanceState == null) {
+            showListInMainContainer();
+        }
+    }
+
+    private void showListInMainContainer() {
         Fragment notesFragment = new NotesFragment();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -33,7 +48,7 @@ public class MainActivity
         Fragment noteDetailsFragment = NoteDetailsFragment.newInstance(note);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.activity_main__main_fragment_container, noteDetailsFragment)
+                .replace(R.id.activity_main__second_fragment_container, noteDetailsFragment)
                 .addToBackStack(null)
                 .commit();
     }
@@ -42,4 +57,13 @@ public class MainActivity
     public void popBackFragment() {
         getSupportFragmentManager().popBackStack();
     }
+
+    @Override
+    public void updateDataSet() {
+        NotesFragment notesFragment = (NotesFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST_FRAGMENT);
+        if (notesFragment == null)
+            throw new IllegalStateException("ColorsListFragment not on screen");
+        notesFragment.updateDataSet();
+    }
+
 }

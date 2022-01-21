@@ -84,10 +84,13 @@ public class NoteDetailsFragment extends Fragment {
                     noteTitleEditText.getText().toString(),
                     noteContentEditText.getText().toString()); // TODO delete by id
             controller.popBackFragment();
+            controller.updateDataSet();
         });
     }
 
     public interface Controller {
         void popBackFragment();
+
+        void updateDataSet();
     }
 }
