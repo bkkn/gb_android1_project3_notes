@@ -73,6 +73,7 @@ public class NoteDetailsFragment extends Fragment {
         deleteButton.setOnClickListener(v -> {
             App.get().notes.deleteNote(note); // TODO delete by id
             controller.popBackFragment();
+            controller.updateDataSet();
         });
         cancelButton = view.findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(v -> {
