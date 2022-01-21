@@ -68,7 +68,7 @@ public class NoteDetailsFragment extends Fragment {
         noteContentEditText = view.findViewById(R.id.content_edit_text);
 
         note = getArguments().getParcelable(NOTE_ARG_KEY);
-        //rootLayout.setBackgroundColor(note.getColor());
+        rootLayout.setBackgroundColor(note.getColor());
         noteTitleEditText.setText(note.getTitle());
         noteContentEditText.setText(note.getText());
 

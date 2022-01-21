@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.Nullable;
 
 public class Note implements Parcelable {
-    public static final String DEFAULT_COLOR = "FBEED1";
+    public static final String DEFAULT_COLOR = "FFFBEED1";
     public static final Creator<Note> CREATOR = new Creator<Note>() {
         @Override
         public Note createFromParcel(Parcel in) {
@@ -21,7 +21,7 @@ public class Note implements Parcelable {
     private int id;
     private String title;
     private String text;
-    private int color = Integer.parseInt(DEFAULT_COLOR, 16);
+    private int color = (int) Long.parseLong(DEFAULT_COLOR, 16);
 
     public Note(int id, String title, String text) {
         this.id = id;
