@@ -23,6 +23,9 @@ public class Note implements Parcelable {
     private String text;
     private int color = (int) Long.parseLong(DEFAULT_COLOR, 16);
 
+    public Note() {
+    }
+
     public Note(int id, String title, String text) {
         this.id = id;
         this.title = title;

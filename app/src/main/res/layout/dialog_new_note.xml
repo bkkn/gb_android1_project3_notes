@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_new_note"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBEED1"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/dialog__note_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/dialog__note_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

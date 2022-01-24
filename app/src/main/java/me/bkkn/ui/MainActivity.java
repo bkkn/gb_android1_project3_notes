@@ -49,6 +49,17 @@ public class MainActivity
     }
 
     @Override
+    public void showNewNoteDialog() {
+        Note note = new Note();
+        AlertDialogFragment alertDialogFragment = AlertDialogFragment.newInstance(note);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_main__second_fragment_container, alertDialogFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
     public void popBackFragment() {
         getSupportFragmentManager().popBackStack();
     }

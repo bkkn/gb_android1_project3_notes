@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,11 +61,17 @@ public class NotesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         addNewNoteButton.setOnClickListener(v -> {
-            notes.addNewNote();
-            List<Note> list = notes.getNotes();
-            adapter.setData(list);
-            adapter.notifyItemInserted(list.size() - 1);
-            recyclerView.smoothScrollToPosition(list.size() - 1);
+//            View dlgView = v.getRootView().findViewById(R.id.dialog_new_note);
+//            View dlgView1 = v.getRootView().findViewById(R.id.dialog__note_title);
+//            View dlgView2 = v.getRootView().findViewById(R.id.dialog__note_content);
+//
+//            new AlertDialog.Builder(v.getContext())
+//           // .setView(R.id.dialog_new_note)
+//            .setPositiveButton(R.string.dialog_positive_button,(dialogInterface,i) -> addNewNote())
+//            .setNegativeButton(R.string.dialog_negative_button,(dialogInterface,i) -> {})
+//            .show();
+            controller.showNewNoteDialog();
+            addNewNote();
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -88,11 +95,21 @@ public class NotesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    private void addNewNote() {
+        notes.addNewNote();
+        List<Note> list = notes.getNotes();
+        adapter.setData(list);
+        adapter.notifyItemInserted(list.size() - 1);
+        recyclerView.smoothScrollToPosition(list.size() - 1);
+    }
+
     public void updateDataSet() {
         adapter.setData(notes.getNotes());
     }
 
     public interface Controller {
         void showNoteDetails(Note note);
+
+        void showNewNoteDialog();
     }
 }
