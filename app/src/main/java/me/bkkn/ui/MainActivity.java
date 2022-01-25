@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import me.bkkn.App;
 import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
 import me.bkkn.ui.details.NoteDetailsFragment;
@@ -15,7 +16,7 @@ import me.bkkn.ui.list.NotesFragment;
 
 public class MainActivity
         extends AppCompatActivity
-        implements NotesFragment.Controller, NoteDetailsFragment.Controller {
+        implements NotesFragment.Controller, NoteDetailsFragment.Controller, AlertDialogFragment.Controller {
 
     private static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
     private int pressedCount = 0;
@@ -50,13 +51,10 @@ public class MainActivity
 
     @Override
     public void showNewNoteDialog() {
-        Note note = new Note();
-        AlertDialogFragment alertDialogFragment = AlertDialogFragment.newInstance(note);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.activity_main__second_fragment_container, alertDialogFragment)
-                .addToBackStack(null)
-                .commit();
+        AlertDialogFragment alertDialogFragment = new AlertDialogFragment();
+        alertDialogFragment.setCancelable(false);
+        alertDialogFragment.show(getSupportFragmentManager(), "allert_dialog_tag");
+        alertDialogFragment.getArguments();
     }
 
     @Override
@@ -70,11 +68,11 @@ public class MainActivity
         if (notesFragment == null)
             throw new IllegalStateException("ColorsListFragment not on screen");
         notesFragment.updateDataSet();
+        notesFragment.scrollToAdded();
     }
 
     @Override
     public void onBackPressed() {
-
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
             if (++pressedCount % 2 == 0)
                 super.onBackPressed();
@@ -92,5 +90,11 @@ public class MainActivity
             pressedCount = 0;
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void addNewNote(String title, String content) {
+        App.get().notes.addNewNote(title, content);
+        updateDataSet();
     }
 }

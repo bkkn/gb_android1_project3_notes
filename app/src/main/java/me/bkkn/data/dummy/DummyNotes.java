@@ -43,4 +43,10 @@ public class DummyNotes implements Notes {
         int i = list.size();
         list.add(new Note(i, "new" + i, "new" + i));
     }
+
+    @Override
+    public void addNewNote(String title, String content) {
+        int i = list.size();
+        list.add(new Note(i, title, content));
+    }
 }

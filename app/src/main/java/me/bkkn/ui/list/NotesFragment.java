@@ -71,7 +71,7 @@ public class NotesFragment extends Fragment {
 //            .setNegativeButton(R.string.dialog_negative_button,(dialogInterface,i) -> {})
 //            .show();
             controller.showNewNoteDialog();
-            addNewNote();
+//            addNewNote();
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -105,6 +105,11 @@ public class NotesFragment extends Fragment {
 
     public void updateDataSet() {
         adapter.setData(notes.getNotes());
+    }
+
+    public void scrollToAdded() {
+        List<Note> list = notes.getNotes();
+        recyclerView.smoothScrollToPosition(list.size() - 1);
     }
 
     public interface Controller {

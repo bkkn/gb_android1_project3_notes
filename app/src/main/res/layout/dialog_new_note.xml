@@ -9,11 +9,23 @@
     <EditText
         android:id="@+id/dialog__note_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/new_note_title" />
 
     <EditText
         android:id="@+id/dialog__note_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="New Note Content" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_ok_button_label"
+        android:id="@+id/dialog_ok_button"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel_button_label"
+        android:id="@+id/dialog_cancel_button"/>
 
 </LinearLayout>
