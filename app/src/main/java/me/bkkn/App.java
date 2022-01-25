@@ -7,18 +7,17 @@ import me.bkkn.data.dummy.DummyNotes;
 import me.bkkn.domain.repository.Notes;
 
 public class App extends Application {
-    private Notes notes = new DummyNotes();
+    private static App sInstance = null;
 
-    public static App get(Context context) {
-        return (App) context.getApplicationContext();
-    }
+    public final Notes notes = new DummyNotes();
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
     }
 
-    public Notes getNotes() {
-        return notes;
+    public static App get() {
+        return sInstance;
     }
 }

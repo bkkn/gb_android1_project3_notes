@@ -5,4 +5,11 @@
     <string name="cancel_button_label">закрыть</string>
     <string name="ok_button_label">сохранить</string>
     <string name="delete">Delete</string>
+    <string name="dialog_positive_button">OK</string>
+    <string name="dialog_negative_button">Cancel</string>
+    <string name="new_note_title">New Note Title</string>
+    <string name="dialog_ok_button_label">OK</string>
+    <string name="ColorsListFragment_not_on_screen">ColorsListFragment not on screen</string>
+    <string name="backpressed_message"><![CDATA[One more \'back\', or --->]]></string>
+    <string name="snackbar_button_label">click me to exit</string>
 </resources>
