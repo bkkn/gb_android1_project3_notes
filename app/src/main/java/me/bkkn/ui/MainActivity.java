@@ -1,9 +1,11 @@
 package me.bkkn.ui;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -12,6 +14,7 @@ import me.bkkn.App;
 import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
 import me.bkkn.ui.details.NoteDetailsFragment;
+import me.bkkn.ui.dialog.AlertDialogFragment;
 import me.bkkn.ui.list.NotesFragment;
 
 public class MainActivity
@@ -19,6 +22,7 @@ public class MainActivity
         implements NotesFragment.Controller, NoteDetailsFragment.Controller, AlertDialogFragment.Controller {
 
     private static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
+    public static final String ALERT_DIALOG_TAG = "alert_dialog_tag";
     private int pressedCount = 0;
 
     @Override
@@ -51,10 +55,8 @@ public class MainActivity
 
     @Override
     public void showNewNoteDialog() {
-        AlertDialogFragment alertDialogFragment = new AlertDialogFragment();
-        alertDialogFragment.setCancelable(false);
-        alertDialogFragment.show(getSupportFragmentManager(), "allert_dialog_tag");
-        alertDialogFragment.getArguments();
+        new AlertDialogFragment()
+                .show(getSupportFragmentManager(), ALERT_DIALOG_TAG);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class MainActivity
     public void updateDataSet() {
         NotesFragment notesFragment = (NotesFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST_FRAGMENT);
         if (notesFragment == null)
-            throw new IllegalStateException("ColorsListFragment not on screen");
+            throw new IllegalStateException(getString(R.string.ColorsListFragment_not_on_screen));
         notesFragment.updateDataSet();
         notesFragment.scrollToAdded();
     }
@@ -79,11 +81,9 @@ public class MainActivity
             else {
                 View view = findViewById(R.id.activity_main__main_fragment_container);
                 Snackbar
-                        .make(this, view, "One more 'back', or --->", Snackbar.LENGTH_SHORT)
-                        .setAction("click me to exit", v -> {
-                            super.onBackPressed();
-                        })
-                        .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+                        .make(this, view, getString(R.string.backpressed_message), Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.snackbar_button_label, v -> super.onBackPressed())
+                        .setActionTextColor(ContextCompat.getColor(this,android.R.color.holo_red_light))
                         .show();
             }
         } else {

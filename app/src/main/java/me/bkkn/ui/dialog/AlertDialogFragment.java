@@ -1,4 +1,4 @@
-package me.bkkn.ui;
+package me.bkkn.ui.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ public class AlertDialogFragment extends DialogFragment {
         if (context instanceof AlertDialogFragment.Controller) {
             controller = (Controller) context;
         } else {
-            throw new IllegalStateException("Activity must implement NoteDetailsFragment.Controller");
+            throw new IllegalStateException("Activity must implement AlertDialogFragment.Controller");
         }
     }
 
@@ -43,12 +43,14 @@ public class AlertDialogFragment extends DialogFragment {
         titleEditText = view.findViewById(R.id.dialog__note_title);
         contentEditText = view.findViewById(R.id.dialog__note_content);
         okButton = view.findViewById(R.id.dialog_ok_button);
+        cancelButton = view.findViewById(R.id.dialog_cancel_button);
+
         okButton.setOnClickListener(v -> {
             controller.addNewNote(titleEditText.getText().toString(),
                     contentEditText.getText().toString());
             this.dismiss();
         });
-        cancelButton = getView().findViewById(R.id.dialog_cancel_button);
+        cancelButton.setOnClickListener(view1 -> dismiss());
     }
 
     @Override
@@ -57,7 +59,7 @@ public class AlertDialogFragment extends DialogFragment {
         //setCancelable(false);
     }
 
-    interface Controller {
+    public interface Controller {
         void addNewNote(String title, String content);
     }
 }
