@@ -1,89 +1,137 @@
 package me.bkkn.ui;
 
-import static me.bkkn.ui.NoteActivity.NOTE_EXTRA_KEY;
-
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.view.menu.MenuItemWrapperICS;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
-import java.util.List;
+import com.google.android.material.snackbar.Snackbar;
 
 import me.bkkn.App;
 import me.bkkn.R;
 import me.bkkn.domain.entity.Note;
-import me.bkkn.domain.repository.Notes;
-import me.bkkn.ui.list.NoteAdapter;
-import me.bkkn.ui.list.NoteViewHolder;
+import me.bkkn.ui.details.NoteDetailsFragment;
+import me.bkkn.ui.dialog.AlertDialogFragment;
+import me.bkkn.ui.list.NotesFragment;
 
-public class MainActivity extends AppCompatActivity {
-    private static final int NOTE_REQUEST_CODE = 42;
+public class MainActivity
+        extends AppCompatActivity
+        implements NotesFragment.Controller, NoteDetailsFragment.Controller, AlertDialogFragment.Controller {
 
-    private Notes notes;
-
-    private RecyclerView recyclerView;
-    private NoteAdapter adapter;
-
-    private Button addNewNoteButton;
+    public static final String ALERT_DIALOG_TAG = "alert_dialog_tag";
+    private static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
+    private static final String TAG = "@@@";
+    private int pressedCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        notes = App.get(this).getNotes();
-
-        initRecycler();
+        if (savedInstanceState == null) {
+            showListInMainContainer();
+        }
     }
 
-    private void initRecycler() {
-        recyclerView = findViewById(R.id.recycler_view);
-        addNewNoteButton = findViewById(R.id.add_note_button);
-
-        addNewNoteButton.setOnClickListener(v -> {
-            notes.addNewNote();
-            List<Note> list = notes.getNotes();
-            adapter.setData(list);
-            adapter.notifyItemInserted(list.size() - 1);
-            recyclerView.smoothScrollToPosition(list.size() - 1);
-        });
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        adapter = new NoteAdapter();
-        List<Note> list = notes.getNotes();
-        adapter.setData(list);
-        adapter.setOnDeleteClickListener(new NoteViewHolder.OnNoteListener() {
-            @Override
-            public void onDeleteNote(Note note) {
-                notes.deleteNote(note);
-                adapter.setData(notes.getNotes());
-            }
-
-            @Override
-            public void onClickNote(Note note) {
-                Intent intent = new Intent(MainActivity.this, NoteActivity.class);
-                intent.putExtra(NOTE_EXTRA_KEY, note);
-                startActivityForResult(intent, NOTE_REQUEST_CODE);
-            }
-        });
-
-        recyclerView.setAdapter(adapter);
+    private void showListInMainContainer() {
+        Fragment notesFragment = new NotesFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.activity_main__main_fragment_container, notesFragment, TAG_LIST_FRAGMENT)
+                .commit();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void showNoteDetails(Note note) {
+        Fragment noteDetailsFragment = NoteDetailsFragment.newInstance(note);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_main__second_fragment_container, noteDetailsFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
-        if (requestCode == NOTE_REQUEST_CODE && resultCode == RESULT_OK) {
-            adapter.setData(notes.getNotes());
-            //Note note = data.getParcelableExtra(NOTE_EXTRA_KEY);
-            //int idx = App.get(this).getNotes().index(note);
-            adapter.notifyDataSetChanged();
+    @Override
+    public void showNewNoteDialog() {
+        new AlertDialogFragment()
+                .show(getSupportFragmentManager(), ALERT_DIALOG_TAG);
+    }
+
+    @Override
+    public void popBackFragment() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void updateDataSet() {
+        NotesFragment notesFragment = (NotesFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST_FRAGMENT);
+        if (notesFragment == null)
+            throw new IllegalStateException(getString(R.string.ColorsListFragment_not_on_screen));
+        notesFragment.updateDataSet();
+        notesFragment.scrollToAdded();
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            if (++pressedCount % 2 == 0)
+                super.onBackPressed();
+            else {
+                View view = findViewById(R.id.activity_main__main_fragment_container);
+                Snackbar
+                        .make(this, view, getString(R.string.backpressed_message), Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.snackbar_button_label, v -> super.onBackPressed())
+                        .setActionTextColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
+                        .show();
+            }
+        } else {
+            pressedCount = 0;
+            super.onBackPressed();
         }
+    }
+
+    @Override
+    public void addNewNote(String title, String content) {
+        App.get().notes.addNewNote(title, content);
+        updateDataSet();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//
+//        MenuItem menuItemAdd = menu.findItem(R.id.app_bar_add_note);
+//        MenuItem menuItemSearch = menu.findItem(R.id.app_bar_search);
+        //androidx.appcompat.widget.SearchView sv = ((androidx.appcompat.widget.SearchView ) menuItemSearch);
+        //String text = sv.getQuery().toString();
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        Log.d(TAG, "onOptionsItemSelected() called with: item = [" + item + "]");
+//        //Toast.makeText(this, "Activity: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//        switch (item.getItemId()) {
+//            case R.id.app_bar_add_note:
+//                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+//            break;
+//
+//            case R.id.app_bar_search:
+//                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+//                return true;
+//        }
+        return super.onOptionsItemSelected(item);
     }
 }
