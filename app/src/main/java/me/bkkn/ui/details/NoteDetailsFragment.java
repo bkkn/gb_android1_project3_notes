@@ -1,5 +1,6 @@
 package me.bkkn.ui.details;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import me.bkkn.App;
@@ -72,6 +74,9 @@ public class NoteDetailsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        initPopUp(view);
+
         rootLayout = view.findViewById(R.id.note_details_root_linear_layout);
         noteTitleEditText = view.findViewById(R.id.name_edit_text);
         noteContentEditText = view.findViewById(R.id.content_edit_text);
@@ -98,6 +103,35 @@ public class NoteDetailsFragment extends Fragment {
                     noteContentEditText.getText().toString()); // TODO delete by id
             controller.popBackFragment();
             controller.updateDataSet();
+        });
+    }
+
+    private void initPopUp(View view) {
+
+        view.setOnLongClickListener(v -> {
+
+            Activity activity = requireActivity();
+            PopupMenu popupMenu = new PopupMenu(activity, v);
+            activity.getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
+
+            EditText titleEditText = view.findViewById(R.id.name_edit_text);
+            EditText contentEditText = view.findViewById(R.id.content_edit_text);
+
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.action_popup_clear:
+                            titleEditText.setText("");
+                            contentEditText.setText("");
+                            return true;
+                    }
+                    return true;
+                }
+            });
+            popupMenu.show();
+            return true;
         });
     }
 

@@ -18,4 +18,5 @@
     <string name="delete_note_menu_label">Delete Note</string>
     <string name="on_save_toast_message">Saved</string>
     <string name="on_delete_toast_message">Deleted</string>
+    <string name="clear">Clear</string>
 </resources>
