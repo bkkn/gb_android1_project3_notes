@@ -1,10 +1,17 @@
 package me.bkkn.ui;
 
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuItemWrapperICS;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -21,8 +28,9 @@ public class MainActivity
         extends AppCompatActivity
         implements NotesFragment.Controller, NoteDetailsFragment.Controller, AlertDialogFragment.Controller {
 
-    private static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
     public static final String ALERT_DIALOG_TAG = "alert_dialog_tag";
+    private static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
+    private static final String TAG = "@@@";
     private int pressedCount = 0;
 
     @Override
@@ -73,6 +81,8 @@ public class MainActivity
         notesFragment.scrollToAdded();
     }
 
+
+
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
@@ -83,7 +93,7 @@ public class MainActivity
                 Snackbar
                         .make(this, view, getString(R.string.backpressed_message), Snackbar.LENGTH_SHORT)
                         .setAction(R.string.snackbar_button_label, v -> super.onBackPressed())
-                        .setActionTextColor(ContextCompat.getColor(this,android.R.color.holo_red_light))
+                        .setActionTextColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
                         .show();
             }
         } else {
@@ -96,5 +106,32 @@ public class MainActivity
     public void addNewNote(String title, String content) {
         App.get().notes.addNewNote(title, content);
         updateDataSet();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//
+//        MenuItem menuItemAdd = menu.findItem(R.id.app_bar_add_note);
+//        MenuItem menuItemSearch = menu.findItem(R.id.app_bar_search);
+        //androidx.appcompat.widget.SearchView sv = ((androidx.appcompat.widget.SearchView ) menuItemSearch);
+        //String text = sv.getQuery().toString();
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        Log.d(TAG, "onOptionsItemSelected() called with: item = [" + item + "]");
+//        //Toast.makeText(this, "Activity: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//        switch (item.getItemId()) {
+//            case R.id.app_bar_add_note:
+//                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+//            break;
+//
+//            case R.id.app_bar_search:
+//                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+//                return true;
+//        }
+        return super.onOptionsItemSelected(item);
     }
 }

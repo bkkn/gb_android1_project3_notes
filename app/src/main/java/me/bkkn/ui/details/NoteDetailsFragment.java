@@ -4,11 +4,15 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,6 +57,12 @@ public class NoteDetailsFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,6 +99,36 @@ public class NoteDetailsFragment extends Fragment {
             controller.popBackFragment();
             controller.updateDataSet();
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_note_details_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.app_bar_save_note:
+                App.get().notes.editNote(note,
+                        noteTitleEditText.getText().toString(),
+                        noteContentEditText.getText().toString());
+                controller.updateDataSet();
+                Toast.makeText(getContext(),
+                        getResources().getText(R.string.on_save_toast_message),
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.app_bar_delete_note:
+                App.get().notes.deleteNote(note); // TODO delete by id
+                controller.updateDataSet();
+                controller.popBackFragment();
+                Toast.makeText(getContext(),
+                        getResources().getText(R.string.on_delete_toast_message),
+                        Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public interface Controller {

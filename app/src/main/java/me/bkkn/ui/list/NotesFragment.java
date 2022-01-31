@@ -2,14 +2,18 @@ package me.bkkn.ui.list;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +26,7 @@ import me.bkkn.domain.entity.Note;
 import me.bkkn.domain.repository.Notes;
 
 public class NotesFragment extends Fragment {
+    public static final String TAG = "@@@";
     private Notes notes;
 
     private RecyclerView recyclerView;
@@ -37,6 +42,12 @@ public class NotesFragment extends Fragment {
         } else {
             throw new IllegalStateException("Activity must implement NotesFragment.Controller");
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -61,17 +72,7 @@ public class NotesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         addNewNoteButton.setOnClickListener(v -> {
-//            View dlgView = v.getRootView().findViewById(R.id.dialog_new_note);
-//            View dlgView1 = v.getRootView().findViewById(R.id.dialog__note_title);
-//            View dlgView2 = v.getRootView().findViewById(R.id.dialog__note_content);
-//
-//            new AlertDialog.Builder(v.getContext())
-//           // .setView(R.id.dialog_new_note)
-//            .setPositiveButton(R.string.dialog_positive_button,(dialogInterface,i) -> addNewNote())
-//            .setNegativeButton(R.string.dialog_negative_button,(dialogInterface,i) -> {})
-//            .show();
             controller.showNewNoteDialog();
-//            addNewNote();
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -107,9 +108,37 @@ public class NotesFragment extends Fragment {
         adapter.setData(notes.getNotes());
     }
 
+    public void filterDataSet(String query) {
+        //todo implement search
+        Toast.makeText(getContext(), "search", Toast.LENGTH_SHORT).show();
+    }
+
     public void scrollToAdded() {
         List<Note> list = notes.getNotes();
         recyclerView.smoothScrollToPosition(list.size() - 1);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_notes_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected() called with: item = [" + item + "]");
+        //Toast.makeText(this, "Activity: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()) {
+            case R.id.app_bar_add_note:
+                controller.showNewNoteDialog();
+                Toast.makeText(getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.app_bar_search:
+                Toast.makeText(getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public interface Controller {
