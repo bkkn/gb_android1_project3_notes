@@ -88,7 +88,7 @@ public class NoteDetailsFragment extends Fragment {
 
         deleteButton = view.findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(v -> {
-            App.get().notes.deleteNote(note); // TODO delete by id
+            App.get().notes.deleteNote(note);
             controller.popBackFragment();
             controller.updateDataSet();
         });
@@ -100,7 +100,7 @@ public class NoteDetailsFragment extends Fragment {
         okButton.setOnClickListener(v -> {
             App.get().notes.editNote(note,
                     noteTitleEditText.getText().toString(),
-                    noteContentEditText.getText().toString()); // TODO delete by id
+                    noteContentEditText.getText().toString());
             controller.popBackFragment();
             controller.updateDataSet();
         });
@@ -154,7 +154,7 @@ public class NoteDetailsFragment extends Fragment {
                         Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.app_bar_delete_note:
-                App.get().notes.deleteNote(note); // TODO delete by id
+                App.get().notes.deleteNote(note);
                 controller.updateDataSet();
                 controller.popBackFragment();
                 Toast.makeText(getContext(),

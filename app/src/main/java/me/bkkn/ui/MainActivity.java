@@ -107,31 +107,4 @@ public class MainActivity
         App.get().notes.addNewNote(title, content);
         updateDataSet();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//
-//        MenuItem menuItemAdd = menu.findItem(R.id.app_bar_add_note);
-//        MenuItem menuItemSearch = menu.findItem(R.id.app_bar_search);
-        //androidx.appcompat.widget.SearchView sv = ((androidx.appcompat.widget.SearchView ) menuItemSearch);
-        //String text = sv.getQuery().toString();
-        return false;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        Log.d(TAG, "onOptionsItemSelected() called with: item = [" + item + "]");
-//        //Toast.makeText(this, "Activity: " + item.getTitle(), Toast.LENGTH_SHORT).show();
-//        switch (item.getItemId()) {
-//            case R.id.app_bar_add_note:
-//                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
-//            break;
-//
-//            case R.id.app_bar_search:
-//                Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
-//                return true;
-//        }
-        return super.onOptionsItemSelected(item);
-    }
 }
