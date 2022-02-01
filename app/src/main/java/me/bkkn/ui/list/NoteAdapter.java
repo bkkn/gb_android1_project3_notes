@@ -49,7 +49,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     }
 
     public void filter(String query) {
-        //dataCopy.addAll(data);
         data.clear();
         if(query.isEmpty()){
             data.addAll(dataCopy);

@@ -56,7 +56,6 @@ public class AlertDialogFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setCancelable(false);
     }
 
     public interface Controller {

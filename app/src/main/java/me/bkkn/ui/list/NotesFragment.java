@@ -109,11 +109,6 @@ public class NotesFragment extends Fragment {
         adapter.setData(notes.getNotes());
     }
 
-    public void filterDataSet(String query) {
-        //todo implement search
-        Toast.makeText(getContext(), "search", Toast.LENGTH_SHORT).show();
-    }
-
     public void scrollToAdded() {
         List<Note> list = notes.getNotes();
         recyclerView.smoothScrollToPosition(list.size() - 1);
@@ -144,7 +139,6 @@ public class NotesFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Log.d(TAG, "onOptionsItemSelected() called with: item = [" + item + "]");
-        //Toast.makeText(this, "Activity: " + item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
             case R.id.app_bar_add_note:
                 controller.showNewNoteDialog();
