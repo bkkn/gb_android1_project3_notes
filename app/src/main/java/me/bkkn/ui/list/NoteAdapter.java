@@ -23,7 +23,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     public void setData(List<Note> notes) {
         data = notes;
-        data.addAll(data);
+        dataCopy.addAll(data);
         notifyDataSetChanged();
     }
 
@@ -49,7 +49,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     }
 
     public void filter(String query) {
-        dataCopy.addAll(data);
+        //dataCopy.addAll(data);
         data.clear();
         if(query.isEmpty()){
             data.addAll(dataCopy);
