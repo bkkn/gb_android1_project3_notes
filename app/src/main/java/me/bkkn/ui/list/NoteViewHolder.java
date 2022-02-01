@@ -35,8 +35,6 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> onNoteListener.onClickNote(note));
         itemView.setOnLongClickListener(v -> {
             Snackbar.make(v,"LongClicked",Snackbar.LENGTH_SHORT).show();
-            //Toast.makeText(itemView.getContext(), "LongClicked", Toast.LENGTH_SHORT).show();
-            //onNoteListener.onClickNote(note);
             return false;
         });
 

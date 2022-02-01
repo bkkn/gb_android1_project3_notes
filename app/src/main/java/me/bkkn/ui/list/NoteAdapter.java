@@ -14,6 +14,7 @@ import me.bkkn.domain.entity.Note;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     private List<Note> data = new ArrayList<>();
+    private List<Note> dataCopy = new ArrayList<>();
     private NoteViewHolder.OnNoteListener onNoteListener;
 
     public void setOnDeleteClickListener(NoteViewHolder.OnNoteListener onNoteListener) {
@@ -22,6 +23,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     public void setData(List<Note> notes) {
         data = notes;
+        data.addAll(data);
         notifyDataSetChanged();
     }
 
@@ -44,5 +46,21 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public void filter(String query) {
+        dataCopy.addAll(data);
+        data.clear();
+        if(query.isEmpty()){
+            data.addAll(dataCopy);
+        } else{
+            query = query.toLowerCase();
+            for(Note item: dataCopy){
+                if(item.getTitle().toLowerCase().contains(query) || item.getText().toLowerCase().contains(query)){
+                    data.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
