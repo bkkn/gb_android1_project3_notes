@@ -19,4 +19,7 @@
     <string name="on_save_toast_message">Saved</string>
     <string name="on_delete_toast_message">Deleted</string>
     <string name="clear">Clear</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="show_counter">Show Counter</string>
 </resources>

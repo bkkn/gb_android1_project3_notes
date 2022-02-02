@@ -32,7 +32,7 @@ public class App extends Application {
         incrementCount();
     }
 
-    private int getLaunchCount() {
+    public int getLaunchCount() {
         SharedPreferences sharedPreferences = getSharedPreferences(APP_SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getInt(APP_SHARED_PREFS_COUNTER_KEY, 0);
     }

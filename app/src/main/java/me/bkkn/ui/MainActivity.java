@@ -1,17 +1,12 @@
 package me.bkkn.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuItemWrapperICS;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -30,6 +25,7 @@ public class MainActivity
 
     public static final String ALERT_DIALOG_TAG = "alert_dialog_tag";
     private static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
+    private static final String TAG_LAUNCH_CNT_FRAGMENT = "TAG_LAUNCH_CNT_FRAGMENT";
     private static final String TAG = "@@@";
     private int pressedCount = 0;
 
@@ -41,6 +37,25 @@ public class MainActivity
         if (savedInstanceState == null) {
             showListInMainContainer();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.app_bar_show_launch_count ){
+            Fragment launchCountFragment = new LaunchCountFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.activity_main__second_fragment_container, launchCountFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void showListInMainContainer() {
