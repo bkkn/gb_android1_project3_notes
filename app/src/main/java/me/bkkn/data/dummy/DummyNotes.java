@@ -35,7 +35,7 @@ public class DummyNotes implements Notes {
     public void editNote(Note note, String newTitle, String newContent) {
         int index = list.indexOf(note);
         list.get(index).setTitle(newTitle);
-        list.get(index).setText(newContent);
+        list.get(index).setContent(newContent);
     }
 
     @Override

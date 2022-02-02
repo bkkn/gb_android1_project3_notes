@@ -64,7 +64,7 @@ public class Note implements Parcelable {
         return text;
     }
 
-    public void setText(String text) {
+    public void setContent(String text) {
         this.text = text;
     }
 
