@@ -81,8 +81,6 @@ public class MainActivity
         notesFragment.scrollToAdded();
     }
 
-
-
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
