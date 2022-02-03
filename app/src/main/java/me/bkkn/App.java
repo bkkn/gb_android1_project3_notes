@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import me.bkkn.data.dummy.SharedPreferencesNotes;
+import me.bkkn.data.dummy.SnappyDBNotes;
 import me.bkkn.domain.repository.Notes;
 
 public class App extends Application {
@@ -24,7 +25,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        notes = new SharedPreferencesNotes(this);
+        notes = new SnappyDBNotes(this);
         sInstance = this;
         int count = getLaunchCount();
         Log.d(TAG, "onCreate() called");

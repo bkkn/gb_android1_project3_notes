@@ -41,6 +41,9 @@ public class Note implements Parcelable {
         return id;
     }
 
+    public String getIdString() {
+        return String.valueOf(id);
+    }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
