@@ -2,23 +2,48 @@ package me.bkkn;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
-import me.bkkn.data.dummy.DummyNotes;
+import me.bkkn.data.dummy.SharedPreferencesNotes;
+import me.bkkn.data.dummy.SnappyDBNotes;
 import me.bkkn.domain.repository.Notes;
 
 public class App extends Application {
-    private Notes notes = new DummyNotes();
+    private static final String APP_SHARED_PREFS_NAME = "APP_SHARED_PREFS_NAME";
+    private static final String APP_SHARED_PREFS_COUNTER_KEY = "APP_SHARED_PREFS_COUNTER_KEY";
+    public static final String TAG = "@@@";
+    private static App sInstance = null;
+    private static int launchCounter = 0;
 
-    public static App get(Context context) {
-        return (App) context.getApplicationContext();
+    public Notes notes;
+
+    public static App get() {
+        return sInstance;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        notes = new SnappyDBNotes(this);
+        sInstance = this;
+        int count = getLaunchCount();
+        Log.d(TAG, "onCreate() called");
+        Log.d(TAG, "Count: " + count + "\n");
+        incrementCount();
     }
 
-    public Notes getNotes() {
-        return notes;
+    public int getLaunchCount() {
+        SharedPreferences sharedPreferences = getSharedPreferences(APP_SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(APP_SHARED_PREFS_COUNTER_KEY, 0);
+    }
+
+    private void setLaunchCount(int count) {
+        SharedPreferences sharedPreferences = getSharedPreferences(APP_SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.edit().putInt(APP_SHARED_PREFS_COUNTER_KEY, count).apply();
+    }
+
+    public void incrementCount() {
+        setLaunchCount(getLaunchCount() + 1);
     }
 }

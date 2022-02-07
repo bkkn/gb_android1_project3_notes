@@ -11,7 +11,7 @@ public class DummyNotes implements Notes {
 
     public DummyNotes() {
         for (int i = 0; i < 10; i++) {
-            list.add(new Note("title" + i, "text" + i, 0));
+            list.add(new Note(i, "title" + i, "text" + i));
         }
     }
 
@@ -35,12 +35,18 @@ public class DummyNotes implements Notes {
     public void editNote(Note note, String newTitle, String newContent) {
         int index = list.indexOf(note);
         list.get(index).setTitle(newTitle);
-        list.get(index).setText(newContent);
+        list.get(index).setContent(newContent);
     }
 
     @Override
     public void addNewNote() {
         int i = list.size();
-        list.add(new Note("new"+i,"new"+i,0));
+        list.add(new Note(i, "new" + i, "new" + i));
+    }
+
+    @Override
+    public void addNewNote(String title, String content) {
+        int i = list.size();
+        list.add(new Note(i, title, content));
     }
 }

@@ -15,6 +15,8 @@ public interface Notes {
 
     void addNewNote();
 
+    void addNewNote(String title, String content);
+
     default int index(Note note)
     {
         return getNotes().indexOf(note);

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.Nullable;
 
 public class Note implements Parcelable {
+    public static final String DEFAULT_COLOR = "FFFBEED1";
     public static final Creator<Note> CREATOR = new Creator<Note>() {
         @Override
         public Note createFromParcel(Parcel in) {
@@ -17,27 +18,36 @@ public class Note implements Parcelable {
             return new Note[size];
         }
     };
-    String title;
-    String text;
-    long timestamp;
+    private int id;
+    private String title;
+    private String text;
+    private int color = (int) Long.parseLong(DEFAULT_COLOR, 16);
 
-    public Note(String title, String text, long timestamp) {
+    public Note() {
+    }
+
+    public Note(int id, String title, String text) {
+        this.id = id;
         this.title = title;
         this.text = text;
-        this.timestamp = timestamp;
     }
 
     protected Note(Parcel in) {
         title = in.readString();
         text = in.readString();
-        timestamp = in.readLong();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getIdString() {
+        return String.valueOf(id);
+    }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(text);
-        dest.writeLong(timestamp);
     }
 
     @Override
@@ -57,23 +67,16 @@ public class Note implements Parcelable {
         return text;
     }
 
-    public void setText(String text) {
+    public void setContent(String text) {
         this.text = text;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
     }
 
     @Override
     public boolean equals(@Nullable Object other) {
+        return ((Note) other).id == id;
+    }
 
-        return ((Note) other).text.compareTo(text) == 0 &&
-                ((Note) other).title.compareTo(title) == 0 &&
-                ((Note) other).timestamp == timestamp;
+    public int getColor() {
+        return color;
     }
 }
