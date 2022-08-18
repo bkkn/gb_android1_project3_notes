@@ -28,19 +28,19 @@ class MainActivity : AppCompatActivity() {
     private fun initRecycler() {
         binding.addNoteButton.setOnClickListener {
             notes.addNewNote()
-            val list = notes.getlist()
+            val list = notes.getList()
             adapter.setData(list)
             adapter.notifyItemInserted(list.size - 1)
             binding.recyclerView.smoothScrollToPosition(list.size - 1)
         }
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = NoteAdapter()
-        val list = notes.getlist()
+        val list = notes.getList()
         adapter.setData(list)
         adapter.setOnDeleteClickListener(object : OnNoteListener {
             override fun onDeleteNote(note: Note) {
                 notes.deleteNote(note)
-                adapter.setData(notes.getlist())
+                adapter.setData(notes.getList())
             }
 
             override fun onClickNote(note: Note) {
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == NOTE_REQUEST_CODE && resultCode == RESULT_OK) {
-            adapter.setData(notes.getlist())
+            adapter.setData(notes.getList())
             //Note note = data.getParcelableExtra(NOTE_EXTRA_KEY);
             //int idx = App.get(this).getNotes().index(note);
             adapter.notifyDataSetChanged()

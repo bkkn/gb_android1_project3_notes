@@ -1,4 +1,3 @@
-package me.bkkn.util;
+package me.bkkn.util
 
-public class ContextUtil {
-}
+class ContextUtil 

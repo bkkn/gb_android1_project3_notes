@@ -1,22 +1,14 @@
-package me.bkkn.domain.repository;
+package me.bkkn.domain.repository
 
-import java.util.List;
+import me.bkkn.domain.entity.Note
 
-import me.bkkn.domain.entity.Note;
-
-public interface Notes {
-    List<Note> getlist();
-
-    void deleteNote(Note note);
-
-    void changeTitle(Note note, String newTitle);
-
-    void editNote(Note note, String newTitle, String newContent);
-
-    void addNewNote();
-
-    default int index(Note note)
-    {
-        return getlist().indexOf(note);
+interface Notes {
+    fun getList(): MutableList<Note>
+    fun deleteNote(note: Note)
+    fun changeTitle(note: Note, newTitle: String)
+    fun editNote(note: Note, newTitle: String, newContent: String)
+    fun addNewNote()
+    fun index(note: Note): Int {
+        return getList().indexOf(note)
     }
 }

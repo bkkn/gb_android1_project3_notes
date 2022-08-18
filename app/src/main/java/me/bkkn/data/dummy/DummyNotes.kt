@@ -1,46 +1,37 @@
-package me.bkkn.data.dummy;
+package me.bkkn.data.dummy
 
-import java.util.ArrayList;
-import java.util.List;
+import me.bkkn.domain.entity.Note
+import me.bkkn.domain.repository.Notes
 
-import me.bkkn.domain.entity.Note;
-import me.bkkn.domain.repository.Notes;
+class DummyNotes : Notes {
+    private var list: MutableList<Note> = mutableListOf()
+    override fun getList(): MutableList<Note> {
+        return list
+    }
 
-public class DummyNotes implements Notes {
-    List<Note> list = new ArrayList<>();
+    override fun deleteNote(note: Note) {
+        list.remove(note)
+    }
 
-    public DummyNotes() {
-        for (int i = 0; i < 10; i++) {
-            list.add(new Note("title" + i, "text" + i, 0));
+    override fun changeTitle(note: Note, newTitle: String) {
+        val index = list.indexOf(note)
+        list[index].title = newTitle
+    }
+
+    override fun editNote(note: Note, newTitle: String, newContent: String) {
+        val index = list.indexOf(note)
+        list[index].title = newTitle
+        list[index].text = newContent
+    }
+
+    override fun addNewNote() {
+        val i = list.size
+        list.add(Note("new$i", "new$i", 0))
+    }
+
+    init {
+        for (i in 0..9) {
+            list.add(Note("title$i", "text$i", 0))
         }
-    }
-
-    @Override
-    public List<Note> getlist() {
-        return list;
-    }
-
-    @Override
-    public void deleteNote(Note note) {
-        list.remove(note);
-    }
-
-    @Override
-    public void changeTitle(Note note, String newTitle) {
-        int index = list.indexOf(note);
-        list.get(index).setTitle(newTitle);
-    }
-
-    @Override
-    public void editNote(Note note, String newTitle, String newContent) {
-        int index = list.indexOf(note);
-        list.get(index).setTitle(newTitle);
-        list.get(index).setText(newContent);
-    }
-
-    @Override
-    public void addNewNote() {
-        int i = list.size();
-        list.add(new Note("new"+i,"new"+i,0));
     }
 }
