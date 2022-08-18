@@ -16,7 +16,7 @@ public class DummyNotes implements Notes {
     }
 
     @Override
-    public List<Note> getNotes() {
+    public List<Note> getlist() {
         return list;
     }
 

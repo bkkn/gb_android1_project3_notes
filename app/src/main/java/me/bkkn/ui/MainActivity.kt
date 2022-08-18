@@ -13,8 +13,8 @@ import me.bkkn.ui.list.NoteViewHolder.OnNoteListener
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var notes: Notes? = null
-    private var adapter: NoteAdapter? = null
+    private lateinit var notes: Notes
+    private lateinit var adapter: NoteAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,20 +27,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecycler() {
         binding.addNoteButton.setOnClickListener {
-            notes!!.addNewNote()
-            val list = notes!!.notes
-            adapter!!.setData(list)
-            adapter!!.notifyItemInserted(list.size - 1)
+            notes.addNewNote()
+            val list = notes.getlist()
+            adapter.setData(list)
+            adapter.notifyItemInserted(list.size - 1)
             binding.recyclerView.smoothScrollToPosition(list.size - 1)
         }
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = NoteAdapter()
-        val list = notes!!.notes
-        adapter!!.setData(list)
-        adapter!!.setOnDeleteClickListener(object : OnNoteListener {
+        val list = notes.getlist()
+        adapter.setData(list)
+        adapter.setOnDeleteClickListener(object : OnNoteListener {
             override fun onDeleteNote(note: Note) {
-                notes!!.deleteNote(note)
-                adapter!!.setData(notes!!.notes)
+                notes.deleteNote(note)
+                adapter.setData(notes.getlist())
             }
 
             override fun onClickNote(note: Note) {
@@ -55,10 +55,10 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == NOTE_REQUEST_CODE && resultCode == RESULT_OK) {
-            adapter!!.setData(notes!!.notes)
+            adapter.setData(notes.getlist())
             //Note note = data.getParcelableExtra(NOTE_EXTRA_KEY);
             //int idx = App.get(this).getNotes().index(note);
-            adapter!!.notifyDataSetChanged()
+            adapter.notifyDataSetChanged()
         }
     }
 

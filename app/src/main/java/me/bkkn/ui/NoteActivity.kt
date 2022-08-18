@@ -1,57 +1,43 @@
-package me.bkkn.ui;
+package me.bkkn.ui
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import me.bkkn.App
+import me.bkkn.databinding.ActivityNoteBinding
+import me.bkkn.domain.entity.Note
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+class NoteActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityNoteBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityNoteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val intent = intent
+        val note = intent.getParcelableExtra<Note>(NOTE_EXTRA_KEY)
+        binding.nameTextView.setText(note!!.title)
+        binding.contentTextView.setText(note.text)
+        binding.deleteButton.setOnClickListener(View.OnClickListener { v: View? ->
+            App.get(this).notes.deleteNote(note)
+            setResult(RESULT_OK)
+            finish()
+        })
+        binding.cancelButton.setOnClickListener(View.OnClickListener { v: View? ->
+            setResult(RESULT_CANCELED)
+            finish()
+        })
+        binding.okButton.setOnClickListener(View.OnClickListener { v: View? ->
+            App.get(this).notes.editNote(
+                note,
+                binding.nameTextView.text.toString(),
+                binding.contentTextView.text.toString()
+            )
+            setResult(RESULT_OK)
+            finish()
+        })
+    }
 
-import me.bkkn.App;
-import me.bkkn.R;
-import me.bkkn.domain.entity.Note;
-
-public class NoteActivity extends AppCompatActivity {
-    public static final String NOTE_EXTRA_KEY = "NOTE_EXTRA_KEY";
-    private EditText contentEditText;
-    private TextView titleEditText;
-    private Button deleteButton;
-    private Button cancelButton;
-    private Button okButton;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note);
-
-        titleEditText = findViewById(R.id.name_text_view);
-        contentEditText = findViewById(R.id.content_text_view);
-        Intent intent = getIntent();
-        Note note = intent.getParcelableExtra(NOTE_EXTRA_KEY);
-
-        titleEditText.setText(note.getTitle());
-        contentEditText.setText(note.getText());
-
-        deleteButton = findViewById(R.id.delete_button);
-        deleteButton.setOnClickListener(v -> {
-            App.get(this).getNotes().deleteNote(note);
-            setResult(RESULT_OK);
-            finish();
-        });
-        cancelButton = findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(v -> {
-            setResult(RESULT_CANCELED);
-            finish();
-        });
-        okButton = findViewById(R.id.ok_button);
-        okButton.setOnClickListener(v -> {
-            App.get(this).getNotes().editNote(note,
-                    titleEditText.getText().toString(),
-                    contentEditText.getText().toString());
-            setResult(RESULT_OK);
-            finish();
-        });
+    companion object {
+        const val NOTE_EXTRA_KEY = "NOTE_EXTRA_KEY"
     }
 }

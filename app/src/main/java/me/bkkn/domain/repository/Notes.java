@@ -5,7 +5,7 @@ import java.util.List;
 import me.bkkn.domain.entity.Note;
 
 public interface Notes {
-    List<Note>getNotes();
+    List<Note> getlist();
 
     void deleteNote(Note note);
 
@@ -17,6 +17,6 @@ public interface Notes {
 
     default int index(Note note)
     {
-        return getNotes().indexOf(note);
+        return getlist().indexOf(note);
     }
 }
